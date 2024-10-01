@@ -16,21 +16,23 @@ int main() {
         // Create a Stack object
         Stack s;
         std::string option1;
-        //user chooses for linked list or stack
+        //variable declarations
+        int stackOption = 0;
+        int listChoice = 0;
         while (true) {
-            std::cout << "Press L for (Singly Linked) List or S for Stack or Q to Quit\n";
+            std::cout << "Press L for (Singly Linked) List or S for Stack or Q to Quit\n"; //presents which data structure to use
             std::cin >> option1;
 
             if (option1 == "q" || option1 == "Q") break;
 
             if (option1 == "L" || option1 == "l") {
                 std::string option2;
-                int listChoice = 0;
+                //int listChoice = 0;
                 while (listChoice != 10) {
-                    std::cout << "Press S for string list, I for integer list, or Q to quit\n"; //user chooses between a string or integer list
+                    std::cout << "Press S for string list, I for integer list, or Q to quit\n"; //presents which type of list
                     std::cin >> option2;
 
-                    if (option2 == "Q" || option2 == "q") break;
+                    if (option2 == "Q" || option2 == "q") exit(0); //prevents going back to first menu
 
 
                     if (option2 == "I" || option2 == "i") {
@@ -38,24 +40,24 @@ int main() {
                         while (listChoice != 10) {
                             std::cout << "Choose action:\n1. Add to front\n2. Add to back\n3. Delete 1st element\n4. Delete last element\n5. Check 1st element\n6. Check last element\n7. Insert element\n8. Remove element\n9. Find element\n10. Quit\n";
                             std::cin >> listChoice;
-                            //user is presented options to choose from
+                            //menu for integer list
                             if (listChoice == 1) {
                                 int element;
                                 std::cout << "Enter an integer: ";
                                 std::cin >> element;
-                                list1.push_front(element); //adds element as the head
+                                list1.push_front(element); //adds integer as head
                                 std::cout << element << " has been added to the front of the integer list.\n";
                             } else if (listChoice == 2) {
                                 int element;
                                 std::cout << "Enter an integer: ";
                                 std::cin >> element;
-                                list1.push_back(element); //adds element as the tail
+                                list1.push_back(element); //adds integer as tail
                                 std::cout << element << " has been added to the back of the integer list.\n";
                             } else if (listChoice == 3) {
-                                list1.pop_front(); //deletes the head
+                                list1.pop_front(); //removes head of integer list
                                 std::cout << "1st element has been removed from the front of the integer list.\n";
                             } else if (listChoice == 4) {
-                                list1.pop_back(); //deletes the tail
+                                list1.pop_back(); //removes tail of integer list
                                 std::cout << "Last element has been removed from the integer list.\n";
                             } else if (listChoice == 5) {
                                 std::cout << list1.front() << " is the first element of the integer list.\n"; //identifies head
@@ -68,21 +70,21 @@ int main() {
                                 std::cin >> element;
                                 std::cout << "Enter a valid index: ";
                                 std::cin >> index;
-                                list1.insert(index, element); //adds element to the index user inputs
+                                list1.insert(index, element); //adds integer in associated index
                                 std::cout << element << " has been added to the integer list at index " << index << "\n";
                             } else if (listChoice == 8) {
                                 size_t index;
                                 std::cout << "Enter an index to remove the integer: ";
                                 std::cin >> index;
-                                list1.remove(index); //removes the element associated with the index
+                                list1.remove(index); //removes integer at associated index
                                 std::cout << "Removed value at index " << index << "\n";
                             } else if (listChoice == 9) {
                                 int element;
                                 std::cout << "Enter an integer to find the index: ";
                                 std::cin >> element;
-                                size_t index = list1.find(element); //finds index of element
+                                size_t index = list1.find(element); //tries to find integer in list and locate index
                                 if (index != static_cast<size_t>(-1)) {
-                                    std::cout << element << " has been found in the integer list at index " << index << "\n"; //error message
+                                    std::cout << element << " has been found in the integer list at index " << index << "\n"; //if unable to find
                                 } else {
                                     std::cout << element << " has not been found in the integer list.\n";
                                 }
@@ -90,14 +92,14 @@ int main() {
                                 std::cout << "Invalid choice, try again.\n";
                             }
                             if (list1.empty() == false)
-                                list1.printList(); //testing
+                                list1.printList(); //prints integers for testing
                         }
                     } else if (option2 == "S" || option2 == "s") {
 
-                        while (listChoice != 10) {
+                        while (true) {
                             std::cout << "Choose action:\n1. Add to front\n2. Add to back\n3. Delete 1st element\n4. Delete last element\n5. Check 1st element\n6. Check last element\n7. Insert element\n8. Remove element\n9. Find element\n10. Quit\n";
                             std::cin >> listChoice;
-                            //for string linked list, all options are the same with the same functions
+                            //same options and functions as integer lists except it is a string list
                             if (listChoice == 1) {
                                 std::string element;
                                 std::cout << "Enter a string: ";
@@ -144,41 +146,42 @@ int main() {
                                 } else {
                                     std::cout << element << " has not been found in the string list.\n";
                                 }
-                            } else {
+                            } else if (listChoice == 10) { exit(0); }
+                            else {
                                 std::cout << "Invalid choice, try again.\n";
                             }
                         }
-                    } else {
-                        std::cout << "Invalid option, try again.\n";
+                        if (list2.empty() == false)
+                            list2.printList();
                     }
-                    if (list2.empty() == false)
-                        list2.printList();
+
                 }
             } else if (option1 == "S" || option1 == "s") {
+                //int stackOption = 0;
                 while (true) {
-                    int stackOption;
+                    //int stackOption;
                     std::cout << "Stack Menu:\n1. Add element to top\n2. Delete topmost element\n3. Find topmost element\n4. Find average value\n5. Quit\n";
                     std::cin >> stackOption;
-                    //presents options to manipulate stack
+                    //presents user menu to manipulate stack
                     if (stackOption == 1) {
                         int element;
                         std::cout << "Enter an integer: ";
                         std::cin >> element;
-                        s.push(element); //adds to the top of stack
+                        s.push(element); //adds integer to top of stack
                         std::cout << element << " has been added to the stack.\n";
                     } else if (stackOption == 2) {
                         s.pop(); // Call pop to remove the topmost element
                         std::cout << "Topmost element has been removed from the stack.\n";
                     } else if (stackOption == 3) {
-                        std::cout << s.top() << " is the topmost element.\n"; //identifies top of stack
+                        std::cout << s.top() << " is the topmost element.\n"; //identifies topmost element
                     } else if (stackOption == 4) {
-                        std::cout << s.average() << " is the average value of the stack.\n"; //finds average of all values in stack
+                        std::cout << s.average() << " is the average value of the stack.\n"; //find average of all values in stack
                     } else if (stackOption == 5) {
 
-                    break;
+                    exit(0);
 
                 } else { continue; }
-                    
+
                     }
             }
         }
@@ -187,7 +190,7 @@ int main() {
 
 
         }
-        //error messages in case user runs into an error
+        //error messaes
     catch (const std::runtime_error& e) {
         std::cerr << "Runtime error: " << e.what() << std::endl; // Handle runtime errors
     } catch (const std::out_of_range& e) {
