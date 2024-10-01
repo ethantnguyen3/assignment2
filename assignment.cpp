@@ -2,10 +2,10 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
-
+//constructor
 template <typename Item_Type>
 SinglyLinkedList<Item_Type>::SinglyLinkedList() : head(nullptr), tail(nullptr), num_items(0) {}
-
+//destructor
 template <typename Item_Type>
 SinglyLinkedList<Item_Type>::~SinglyLinkedList() {
     while (!empty()) {
@@ -23,6 +23,7 @@ void SinglyLinkedList<Item_Type>::push_front(const Item_Type& item) {
     }
     num_items++; 
 }
+// Function to insert an item at the tail of the list
 template <typename Item_Type>
     void SinglyLinkedList<Item_Type>::push_back(const Item_Type& item) {
         // Create a new node, pointing next to the current tail 
@@ -37,6 +38,7 @@ template <typename Item_Type>
             push_front(item); //if empty list
         
     }
+// Function to delete an item at the head of the list
 template <typename Item_Type>
 void SinglyLinkedList<Item_Type>::pop_front() {
     if (empty()) 
@@ -51,6 +53,7 @@ void SinglyLinkedList<Item_Type>::pop_front() {
     
     num_items--;
 } 
+// Function to delete an item at the tail of the list
 template <typename Item_Type>
 void SinglyLinkedList<Item_Type>::pop_back() {
         // Check if the list is empty
@@ -71,13 +74,15 @@ void SinglyLinkedList<Item_Type>::pop_back() {
             head = nullptr;
         num_items--;
     } 
+// Function to return the item at the head of the list
 template <typename Item_Type>
 Item_Type SinglyLinkedList<Item_Type>::front() const {
         // Check if the list is empty 
         if (head == nullptr) 
             throw std::invalid_argument("Attempt to call front() on an empty list"); 
         return head->item;
-    }
+    } 
+// Function to return an item at the tail of the list
 template <typename Item_Type>
     Item_Type SinglyLinkedList<Item_Type>::back() const {
     // Check if the list is empty 
@@ -86,10 +91,12 @@ template <typename Item_Type>
         return tail->item;
     
     }
+// Function to return if list is empty
 template <typename Item_Type>
 bool SinglyLinkedList<Item_Type>::empty() const {
     return head == nullptr;
 }
+// Function to insert an item at a certain index
 template <typename Item_Type>
     void SinglyLinkedList<Item_Type>::insert(size_t index, const Item_Type& item) {
         // Check if the index is out of range 
@@ -117,6 +124,7 @@ template <typename Item_Type>
         SNode<Item_Type>* new_node = new SNode<Item_Type>(item, current->next);
         current->next = new_node;
     }
+// Function to remove an item at a certain index
 template <typename Item_Type>
 bool SinglyLinkedList<Item_Type>::remove(size_t index) {
         // Check if the index is out of range 
@@ -148,7 +156,7 @@ bool SinglyLinkedList<Item_Type>::remove(size_t index) {
         }
         return false;
         }
-        
+    // Function to find a certain item and returns the index associated with the value
     template <typename Item_Type>
     size_t SinglyLinkedList<Item_Type>::find(const Item_Type& item) {
         if (empty()) {
@@ -172,6 +180,7 @@ bool SinglyLinkedList<Item_Type>::remove(size_t index) {
         // Recur for remaining list
         return -1;
         }
+// Function to print each element of a list for testing purposes
 template <typename Item_Type>
 void SinglyLinkedList<Item_Type>::printList() const {
     SNode<Item_Type>* current = head;
@@ -182,6 +191,6 @@ void SinglyLinkedList<Item_Type>::printList() const {
     std::cout << std::endl;
 }
 
-
+//helps to separate .h and .cpp files
 template class SinglyLinkedList<int>;
 template class SinglyLinkedList<std::string>;
