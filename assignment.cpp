@@ -184,3 +184,4 @@ void SinglyLinkedList<Item_Type>::printList() const {
 
 
 template class SinglyLinkedList<int>;
+template class SinglyLinkedList<std::string>;
