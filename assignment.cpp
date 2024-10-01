@@ -135,12 +135,22 @@ bool SinglyLinkedList<Item_Type>::remove(size_t index) {
             throw std::invalid_argument("Attempt to call remove() on an empty list");  
             return false;
         }
-        SNode<Item_Type>*current = head;
-        SNode<Item_Type>* previous = nullptr;
-    int count = 0;
+    SNode<Item_Type>* current = head;
+    SNode<Item_Type>* previous = nullptr;
 
-    // Traverse the list to find the node before the one to remove
-    while (current != nullptr) {
+    // If we're removing the head (index 0)
+    if (index == 0) {
+        head = current->next; // Update head to the next node
+        if (head == nullptr) { // If the list is now empty
+            tail = nullptr; // Update tail as well
+        }
+        delete current; // Free memory
+        num_items--; // Decrease item count
+        return true;
+    }
+
+    // Traverse the list to find the node to remove
+    for (size_t count = 0; current != nullptr; count++) {
         if (count == index) {
             previous->next = current->next; // Bypass the current node
             if (current == tail) { // If removing the tail
@@ -148,13 +158,13 @@ bool SinglyLinkedList<Item_Type>::remove(size_t index) {
             }
             delete current; // Free memory
             num_items--; // Decrease item count
-            return true; 
+            return true;
         }
         previous = current; // Move previous to current
         current = current->next; // Move current to next
-        count++;
-        }
-        return false;
+    }
+
+    return false;
         }
     // Function to find a certain item and returns the index associated with the value
     template <typename Item_Type>
@@ -173,7 +183,7 @@ bool SinglyLinkedList<Item_Type>::remove(size_t index) {
         while (current != nullptr) {
             if (current->item == item)
                 return index;
-             SNode<Item_Type>*current = head;
+
              index++;
              current = current->next;
         }
